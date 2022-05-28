@@ -20,6 +20,6 @@ jobs:
       - name: Fetch data
         uses: githubocto/flat@v3
         with:
-          http_url: https://goweather.herokuapp.com/weather/omsk
+          http_url: https://goweather.herokuapp.com/weather/belgrade
           downloaded_filename: weather.json
           postprocess: ./postprocess.ts
