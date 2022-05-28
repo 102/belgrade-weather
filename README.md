@@ -1,8 +1,8 @@
-# omsk-weather
+# belgrade-weather
 
-This repo contains historical data of Omsk weather. To take a look, you can
+This repo contains historical data of Belgrade weather. To take a look, you can
 either directly open `history.csv`, or open a
-[Flat Data representation](https://flatgithub.com/102/omsk-weather).
+[Flat Data representation](https://flatgithub.com/102/belgrade-weather).
 
 This repo is a [GitHub Flat Data](https://octo.github.com/projects/flat-data)
 playground and is not supposed to be used in any kind of serious research. The
