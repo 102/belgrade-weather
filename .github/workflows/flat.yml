@@ -16,9 +16,9 @@ jobs:
         with:
           deno-version: v1.x
       - name: Check out repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Fetch data
-        uses: githubocto/flat@v3
+        uses: githubocto/flat@v3.4
         with:
           http_url: https://api.openweathermap.org/data/2.5/weather?lat=44.81&lon=20.46&units=metric&appid=${{ secrets.OPENWEATHERMAP_API_KEY }}
           downloaded_filename: weather.json
