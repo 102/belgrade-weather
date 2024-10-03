@@ -27,6 +27,13 @@ if (!json.main || !json.main.temp || !json.weather || !json.weather[0] || !json.
   Deno.exit(1);
 }
 
+// Validate temperature range
+const temperature = json.main.temp;
+if (temperature < -50 || temperature > 50) {
+  console.error("Error: Temperature value is out of realistic range.");
+  Deno.exit(1);
+}
+
 const newFilename = "history.csv";
 let history = [];
 
@@ -44,17 +51,21 @@ try {
 
 // Prepare new entry
 const newEntry = {
-  "temperature in °C": json.main.temp,
+  "temperature in °C": temperature,
   description: json.weather[0].main,
   date: new Date().toISOString(),
 };
 
-// Write updated data to CSV and handle potential errors
-try {
-  await writeCSV(newFilename, [newEntry, ...history]);
-  console.log("Data successfully written to history.csv");
-} catch (error) {
-  console.error(`Error writing to history.csv: ${error.message}`);
-  Deno.exit(1);
+// Check for duplicates before adding the new entry
+if (!history.some(entry => entry.date === newEntry.date && entry["temperature in °C"] === newEntry["temperature in °C"])) {
+  // Write updated data to CSV and handle potential errors
+  try {
+    await writeCSV(newFilename, [newEntry, ...history]);
+    console.log("Data successfully written to history.csv");
+  } catch (error) {
+    console.error(`Error writing to history.csv: ${error.message}`);
+    Deno.exit(1);
+  }
+} else {
+  console.warn("Warning: Duplicate entry detected; not adding to history.");
 }
-3
