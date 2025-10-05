@@ -1,26 +1,59 @@
 name: data
+
 on:
   schedule:
-    - cron: 55 * * * *
+    - cron: '55 * * * *'  # Runs at minute 55 of every hour
   workflow_dispatch: {}
   push:
     paths:
       - .github/workflows/flat.yml
       - ./postprocess.ts
+
 jobs:
   scheduled:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Setup deno
+      # Checkout repository
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      # Setup Deno
+      - name: Setup Deno
         uses: denoland/setup-deno@main
         with:
           deno-version: v1.x
-      - name: Check out repo
-        uses: actions/checkout@v3
-      - name: Fetch data
+
+      # Cache Deno modules for faster builds
+      - name: Cache Deno modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/deno
+          key: ${{ runner.os }}-deno-${{ hashFiles('**/import_map.json') }}
+
+      # Fetch weather data using Flat
+      - name: Fetch weather data
+        id: fetch_data
         uses: githubocto/flat@3.4.0
         with:
           http_url: https://api.openweathermap.org/data/2.5/weather?lat=44.81&lon=20.46&units=metric&appid=${{ secrets.OPENWEATHERMAP_API_KEY }}
           downloaded_filename: weather.json
           postprocess: ./postprocess.ts
           mask: '["${{ secrets.API_KEY }}", "${{ secrets.OPENWEATHERMAP_API_KEY }}"]'
+
+      # Verify download
+      - name: Verify downloaded file
+        run: |
+          if [[ ! -f weather.json ]]; then
+            echo "❌ weather.json not found! Exiting."
+            exit 1
+          fi
+          echo "✅ weather.json successfully downloaded."
+
+      # Run postprocess script separately for better logging
+      - name: Run postprocess.ts
+        run: |
+          echo "Running postprocess.ts..."
+          deno run --allow-read --allow-write --allow-env ./postprocess.ts
+        continue-on-error: false
