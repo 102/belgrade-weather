@@ -1,1 +1,10 @@
-{"coord":{"lon":20.46,"lat":44.81},"weather":[{"id":801,"main":"Clouds","description":"few clouds","icon":"02d"}],"base":"stations","main":{"temp":12.41,"feels_like":11.85,"temp_min":10.99,"temp_max":12.66,"pressure":1022,"humidity":82,"sea_level":1022,"grnd_level":1006},"visibility":10000,"wind":{"speed":3.58,"deg":185,"gust":4.02},"clouds":{"all":20},"dt":1760424984,"sys":{"type":2,"id":2037836,"country":"RS","sunrise":1760417525,"sunset":1760457354},"timezone":7200,"id":792680,"name":"Belgrade","cod":200}
+{
+  "main": {
+    "temp": 18.86982972653663,
+    "humidity": 63.22849013931774,
+    "pressure": 1009.3388878767826
+  },
+  "wind": {
+    "speed": 4.286419849920801
+  }
+}
