@@ -1,0 +1,38 @@
+# Node.js
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Logs
+logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor files
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Build outputs
+dist/
+build/
+
+# Python server files
+__pycache__/
+
+# Data files and secrets
+# Data files and generated output
+# These are ignored because they are generated at runtime or contain secrets.
+# If you need to run the project, copy `config.example.json` to `config.json` and fill values.
+history.csv
+weather.json
+config.json
+
+# Misc
+*.env
+.env.local

@@ -1,0 +1,13 @@
+{
+  "name": "belgrade-weather",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "process": "node process.js",
+    "start": "node update-weather.js"
+  },
+  "dependencies": {
+    "d3-dsv": "^3.0.1",
+    "node-fetch": "^3.3.2"
+  }
+}
